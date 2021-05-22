@@ -1,0 +1,20 @@
+{
+  "type": "module",
+  "name": "poc-authenticacion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon ./test/task.test.js"
+  },
+  "author": "ivan riboldi",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "0.21.1",
+    "dotenv": "9.0.2",
+    "express": "4.17.1",
+    "jwt-simple": "0.5.6",
+    "moment": "2.29.1",
+    "nodemon": "2.0.7"
+  }
+}

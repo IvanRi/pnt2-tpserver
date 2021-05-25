@@ -1,9 +1,7 @@
-import jwt from "../../services/jwt.js";
+import jwt from "../../utils/jwt.js";
 
 export const isAuth = async (req, res, next) => {
-
   const token = req.headers.authorization;
-  //reviza que exista una autorizacion
   if (!token) {
     return res
       .status(403)
@@ -12,13 +10,10 @@ export const isAuth = async (req, res, next) => {
 
   try {
     const payload = await jwt.decodeToken(token);
-    /* if (payload.exp <= moment().unix()) {
-      return res.status(401).send({ message: "Token expirado!" });
-    } */
     req.user = payload.sub;
     next();
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
     return res.status(403).send({ message: "Token invalido!" });
   }
 };

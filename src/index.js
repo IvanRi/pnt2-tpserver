@@ -1,3 +1,4 @@
 import server from "./routes/server.js";
+import { dbConnect } from "./db/config.js";
 
-await server.createServer();
+server.createServer(dbConnect);

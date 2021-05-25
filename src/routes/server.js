@@ -1,28 +1,19 @@
 import express from "express";
-import { isAuth as auth } from "./middlewares/auth.js";
+import userRouter from "./users/index.js";
+import countRouter from "./Cuentas/index.js";
 
-import { createPrivateRoute } from "./task/index.js";
-
-function createServer() {
+async function createServer(dbConnectionFn) {
   const app = express();
 
   app.use(express.json());
 
-  const port = 3000;
+  const port = process.env.PORT || 3002;
 
-  app.use("/todo", auth, createPrivateRoute());
+  await app.listen(port, () => console.log("Server listen in port: ", port));
+  await dbConnectionFn();
 
-  return new Promise((resolve, reject) => {
-    const server = app
-      .listen(port)
-      .once("error", () => {
-        reject(new Error("Error de conexion servidor."));
-      })
-      .once("listening", () => {
-        server.port = server.address().port;
-        resolve(server);
-      });
-  });
+  app.use("/users", userRouter);
+  app.use("/accounts", countRouter);
 }
 
 export default { createServer };

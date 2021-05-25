@@ -7,7 +7,7 @@
   "scripts": {
     "test": "nodemon ./test/task.test.js",
     "test:users": "nodemon ./test/users.test.js",
-    "start": "nodemon ./src/index.js"
+    "start": "node ./src/index.js"
   },
   "author": "ivan riboldi",
   "license": "MIT",

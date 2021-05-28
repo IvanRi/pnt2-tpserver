@@ -5,7 +5,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon ./test/task.test.js",
     "test:users": "nodemon ./test/users.test.js",
     "start": "node ./src/index.js"
   },

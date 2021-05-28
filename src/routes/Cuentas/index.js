@@ -88,7 +88,7 @@ router.put("/transfer", async (request, response) => {
 
     const resDestino = await Cuenta.findOneAndUpdate(
       { nroCuenta: nroCuentaDestino },
-      { $dec: { saldo: monto }, $push: { movimientos: nuevoMovEntrada } },
+      { $inc: { saldo: monto }, $push: { movimientos: nuevoMovEntrada } },
       opts
     );
 

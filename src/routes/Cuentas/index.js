@@ -80,13 +80,13 @@ router.put("/transfer", async (request, response) => {
       fecha: getCurrentTimeFormated(),
     });
     const opts = { session };
-    const res = await Cuenta.findOneAndUpdate(
+    const res = await Cuenta.findAndModify(
       { nroCuenta },
       { $inc: { saldo: -monto }, $push: { movimientos: nuevoMovSalida } },
       opts
     );
 
-    const resDestino = await Cuenta.findOneAndUpdate(
+    const resDestino = await Cuenta.findAndModify(
       { nroCuenta: nroCuentaDestino },
       { $inc: { saldo: monto }, $push: { movimientos: nuevoMovEntrada } },
       opts
@@ -96,7 +96,7 @@ router.put("/transfer", async (request, response) => {
     session.endSession();
     return response.json({
       msg: "Actualizacion exitosa!",
-      count: res.n + resDestino.n,
+      count: `${parseInt(res.n) + parseInt(resDestino.n)}`,
     });
   } catch (error) {
     await session.abortTransaction();

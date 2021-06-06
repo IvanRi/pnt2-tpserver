@@ -9,7 +9,6 @@ const prestamoSchema = new Schema({
   interes: Number,
   cuotasPendientes: Number,
   valorCuota: Number,
-  motivo: String,
   fecha: String,
 });
 

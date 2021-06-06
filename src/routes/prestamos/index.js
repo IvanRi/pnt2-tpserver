@@ -20,28 +20,22 @@ router.get("/:dni", (request, response) => {
 
 //crear un prestamos nuevo
 router.post("/", async (request, response) => {
-  const {
-    dni,
-    montoOtorgado,
-    totalAPagar,
-    cantCuotas,
-    interes,
-    cuotasPendientes,
-    valorCuota,
-  } = request.body;
+  const { dni, montoOtorgado, cantCuotas } = request.body;
 
   const session = await Cuenta.startSession();
   session.startTransaction();
 
   try {
+    const INTERES = 10;
+    const totalAPagar = montoOtorgado + (montoOtorgado * INTERES) / 100;
     const prestamo = new Prestamo({
       dni,
       montoOtorgado,
       totalAPagar,
       cantCuotas,
-      interes,
-      cuotasPendientes,
-      valorCuota,
+      interes: INTERES,
+      cuotasPendientes: cantCuotas,
+      valorCuota: totalAPagar / cantCuotas,
       fecha: getCurrentTimeFormated(),
     });
 
@@ -57,9 +51,8 @@ router.post("/", async (request, response) => {
     });
 
     const opts = { session };
-    console.log("nuevo mov: ", nuevoMovEntrada);
 
-    const res = await Cuenta.findOneAndUpdate(
+    await Cuenta.findOneAndUpdate(
       { nroCuenta: nroCuentaDestino },
       {
         $inc: { saldo: montoOtorgado },
@@ -67,10 +60,8 @@ router.post("/", async (request, response) => {
       },
       opts
     );
-    console.log("HOLA");
 
     const prestamoRes = await prestamo.save();
-    console.log("PRESTAMORES: ", prestamoRes);
     await session.commitTransaction();
     session.endSession();
     return response.json(prestamoRes);

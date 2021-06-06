@@ -1,6 +1,7 @@
 import express from "express";
 import userRouter from "./users/index.js";
 import countRouter from "./Cuentas/index.js";
+import prestamosRouter from "./prestamos/index.js";
 import { allowCrossDomain } from "./middlewares/corsPolicy.js";
 
 async function createServer(dbConnectionFn) {
@@ -16,6 +17,7 @@ async function createServer(dbConnectionFn) {
 
   app.use("/users", userRouter);
   app.use("/accounts", countRouter);
+  app.use("/prestamos", prestamosRouter);
 }
 
 export default { createServer };

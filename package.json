@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test:users": "nodemon ./test/users.test.js",
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js"
   },
   "author": "ivan riboldi",
   "license": "MIT",
@@ -18,6 +19,7 @@
     "mongoose": "5.12.10"
   },
   "devDependencies": {
+    "nodemon": "^2.0.7",
     "axios": "0.21.1"
   }
 }

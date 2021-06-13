@@ -9,7 +9,8 @@ moment.locale("es"); */
  * @returns {String} string date in the next format: dddd-DD-MMMM
  */
 
-export const formatedTime = (date) => moment.unix(date).format("dddd DD MMMM");
+export const formatedTime = (date) => moment.unix(date).format("DD-MM-YYYY");
+export const formatTime = (date) => date.format("DD-MM-YYYY");
 
 /**
  * Current date formater
